@@ -1,5 +1,7 @@
 package com.ecommerce.project.service;
 
+import com.ecommerce.project.Exception.APIException;
+import com.ecommerce.project.Exception.ResourceNotFoundException;
 import com.ecommerce.project.Model.Category;
 import com.ecommerce.project.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,11 @@ public class CategoryServiceImp implements CategoryService{
 
     @Override
     public void createCategory(Category category) {
+        Category savedCategory = categoryRepository.findByCategoryName(category.getCategoryName());
+
+        if(savedCategory != null) {
+            throw new APIException("Category with category name: " + category.getCategoryName() + " already exist !!");
+        }
         categoryRepository.save(category);
     }
 
@@ -34,7 +41,7 @@ public class CategoryServiceImp implements CategoryService{
     public String deleteCategory(Long id) {
 
         Category existingCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND , "Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category" , "categoryId" , id));
 
         categoryRepository.delete(existingCategory);
 
@@ -46,7 +53,7 @@ public class CategoryServiceImp implements CategoryService{
     @Override
     public Category updateCategory(Long id, Category category) {
         Category existingCategory = categoryRepository.findById(id)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND , "Category not found"));
+                        .orElseThrow(() -> new ResourceNotFoundException("Category" , "categoryId" , id));
 
         existingCategory.setCategoryName(category.getCategoryName());
         return categoryRepository.save(existingCategory);
