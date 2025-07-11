@@ -1,0 +1,17 @@
+[33mcommit ebf2a7fbaeafe359bc16c9d49b3586d8ba188861[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Aakash <akash24524singh@gmail.com>
+Date:   Thu Jul 10 02:18:23 2025 +0530
+
+    added validation and implemented custom exception handler
+
+[33mcommit 0fb7e6c2e67452dd393ca09f95b21be4eb10c559[m
+Author: Aakash <akash24524singh@gmail.com>
+Date:   Tue Jul 8 00:53:39 2025 +0530
+
+    added lombok functionality
+
+[33mcommit 9604cec74434bd1b41e8bd72d6185b18583f4368[m
+Author: Aakash <akash24524singh@gmail.com>
+Date:   Tue Jul 8 00:43:24 2025 +0530
+
+    intial commit
