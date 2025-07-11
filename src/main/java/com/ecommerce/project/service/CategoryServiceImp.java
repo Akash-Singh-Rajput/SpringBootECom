@@ -8,6 +8,9 @@ import com.ecommerce.project.payload.CategoryResponse;
 import com.ecommerce.project.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,8 +27,13 @@ public class CategoryServiceImp implements CategoryService{
     private ModelMapper modelMapper;
 
     @Override
-    public CategoryResponse getAllCategories(){
-        List<Category> categories = categoryRepository.findAll();
+    public CategoryResponse getAllCategories(Integer pageNumber , Integer pageSize){
+
+        Pageable pageDetails = PageRequest.of(pageNumber , pageSize);
+        Page<Category> categoryPage = categoryRepository.findAll(pageDetails);
+
+
+        List<Category> categories = categoryPage.getContent();
         if(categories.isEmpty()){
             throw new APIException("No category has been added yet");
         }
@@ -36,6 +44,12 @@ public class CategoryServiceImp implements CategoryService{
 
         CategoryResponse categoryResponse = new CategoryResponse();
         categoryResponse.setContent(categoryDTOList);
+        categoryResponse.setPageNumber(categoryPage.getNumber());
+        categoryResponse.setPageSize(categoryPage.getSize());
+        categoryResponse.setTotalElement(categoryPage.getTotalElements());
+        categoryResponse.setTotalPages(categoryPage.getTotalPages());
+        categoryResponse.setLastPage(categoryPage.isLast());
+
         return categoryResponse;
     }
 
@@ -55,24 +69,26 @@ public class CategoryServiceImp implements CategoryService{
     }
 
     @Override
-    public String deleteCategory(Long id) {
+    public CategoryDTO deleteCategory(Long id) {
 
         Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category" , "categoryId" , id));
 
         categoryRepository.delete(existingCategory);
 
-        return "Category with id : " + id +  "is successfully deleted";
+        return modelMapper.map(existingCategory , CategoryDTO.class);
 
 
     }
 
     @Override
-    public Category updateCategory(Long id, Category category) {
+    public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
+        Category category = modelMapper.map(categoryDTO , Category.class);
         Category existingCategory = categoryRepository.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException("Category" , "categoryId" , id));
 
         existingCategory.setCategoryName(category.getCategoryName());
-        return categoryRepository.save(existingCategory);
+        Category savedCategory = categoryRepository.save(existingCategory);
+        return modelMapper.map(savedCategory , CategoryDTO.class);
     }
 }
