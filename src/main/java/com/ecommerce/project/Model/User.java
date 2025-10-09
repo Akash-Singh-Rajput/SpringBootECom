@@ -3,7 +3,6 @@ package com.ecommerce.project.Model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +30,7 @@ public class User {
     @NotBlank
     @Size(max = 120)
     @Column(name = "username")
-    private String username;
+    private String userName;
 
     @NotBlank
     @Size(max = 50)
@@ -45,7 +44,7 @@ public class User {
     private String password;
 
     public User(String username, String email, String password) {
-        this.username = username;
+        this.userName = username;
         this.email = email;
         this.password = password;
     }
