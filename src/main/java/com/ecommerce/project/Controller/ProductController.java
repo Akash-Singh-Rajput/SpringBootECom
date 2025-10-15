@@ -35,6 +35,7 @@ public class ProductController {
             @RequestParam (name = "sortBy" , defaultValue = AppConstant.SORT_PRODUCT_BY , required = false) String sortBy,
             @RequestParam (name = "sortOrder" , defaultValue = AppConstant.SORT_ORDER , required = false) String sortOrder
             ){
+
         ProductResponse productResponse = productService.getAllProduct(pageNumber , pageSize , sortBy , sortOrder);
 
         return new ResponseEntity<>(productResponse, HttpStatus.OK);

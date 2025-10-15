@@ -3,6 +3,7 @@ package com.ecommerce.project.security.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -17,5 +18,9 @@ public class UserInfoResponse {
     private List<String> roles;
     private String jwtToken;
 
-
+    public UserInfoResponse(Long id, String username, List<String> roles) {
+        this.id = id;
+        this.username = username;
+        this.roles = roles;
+    }
 }
