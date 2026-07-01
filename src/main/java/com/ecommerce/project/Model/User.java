@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -51,6 +52,10 @@ public class User {
         this.password = password;
     }
 
+    @ToString.Exclude
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.MERGE , CascadeType.PERSIST} , orphanRemoval = true)
+    private Cart cart;
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE} ,
                 fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
@@ -58,11 +63,7 @@ public class User {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST , CascadeType.MERGE})
-    @JoinTable(name = "user_address" ,
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "address_id"))
+    @OneToMany(cascade = {CascadeType.PERSIST , CascadeType.MERGE} , orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
-
 
 }

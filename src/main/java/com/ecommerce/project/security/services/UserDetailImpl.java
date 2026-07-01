@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
+@Component
 @Data
 public class UserDetailImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
