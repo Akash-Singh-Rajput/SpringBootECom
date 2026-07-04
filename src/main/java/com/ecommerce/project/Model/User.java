@@ -63,7 +63,7 @@ public class User {
                 inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(cascade = {CascadeType.PERSIST , CascadeType.MERGE} , orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST , CascadeType.MERGE} , orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
 
 }

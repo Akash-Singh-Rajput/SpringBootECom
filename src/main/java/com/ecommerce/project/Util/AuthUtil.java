@@ -1,5 +1,6 @@
 package com.ecommerce.project.Util;
 
+import com.ecommerce.project.Exception.APIException;
 import com.ecommerce.project.Model.User;
 import com.ecommerce.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,12 @@ public class AuthUtil {
 
     public User getLoggedInUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || !authentication.isAuthenticated() || authentication.getName().equalsIgnoreCase("anonymousUser")){
+            throw new UsernameNotFoundException("Please login first!!");
+        }
         User user = userRepository.findByUsername(authentication.getName()).
-                orElseThrow(() -> new UsernameNotFoundException("You are not logged In! Please login first" + authentication.getName()));
+                orElseThrow(() -> new UsernameNotFoundException("User not found: " + authentication.getName()));
         return user;
 
     }

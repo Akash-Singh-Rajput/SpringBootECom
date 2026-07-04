@@ -1,5 +1,6 @@
 package com.ecommerce.project.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -35,6 +36,10 @@ public class Address {
     private String state;
 
     @NotBlank
+    @Size(min = 2 , message = "state name must be at-least  5 characters")
+    private String city;
+
+    @NotBlank
     @Size(min = 2  , message = "country name must be at-least  5 characters")
     private String country;
 
@@ -43,8 +48,9 @@ public class Address {
     private String pincode;
 
     @ToString.Exclude
-    @ManyToMany(mappedBy = "addresses")
-    private List<User> users = new ArrayList<>();
-
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
