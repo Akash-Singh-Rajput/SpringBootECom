@@ -1,6 +1,6 @@
-# 🛒 SpringBootECom
+# 🛒 CommerceCore
 
-Welcome to **SpringBootECom**, a modular e-commerce web application built with Java and Spring Boot. This project demonstrates secure, scalable design, product and category management, and role-based user access.
+Welcome to **CommerceCore**, a modular e-commerce web application built with Java and Spring Boot. This project demonstrates secure, scalable design, product and category management, and role-based user access.
 
 ---
 
