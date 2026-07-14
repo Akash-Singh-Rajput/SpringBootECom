@@ -60,7 +60,7 @@ Welcome to **CommerceCore**, a modular e-commerce web application built with Jav
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Akash-Singh-Rajput/SpringBootECom.git
+   git clone https://github.com/Akash-Singh-Rajput/CommerceCore
    cd SpringBootECom
    ```
 
